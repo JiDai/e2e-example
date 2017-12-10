@@ -1,0 +1,65 @@
+version: '2.1'
+
+services:
+  hub:
+    image: selenium/hub
+    ports:
+    - 4444:4444/tcp
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "http://localhost:4444/grid/console", "--spider" ]
+    logging:
+      driver: json-file
+      options:
+        max-size: '50m'
+    network_mode: 'bridge'
+    restart: on-failure:5
+    cpu_shares: 128
+    mem_limit: 268435456
+    security_opt:
+    - no-new-privileges
+
+  chrome:
+    image: selenium/node-chrome-debug
+    ports:
+    - 5900:5900/tcp
+    environment:
+      SCREEN_WIDTH: '1600'
+      SCREEN_HEIGHT: '1200'
+    volumes:
+    - /dev/shm:/dev/shm
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "http://localhost:5555/", "--spider" ]
+    links:
+    - hub
+    logging:
+      driver: json-file
+      options:
+        max-size: '50m'
+    network_mode: 'bridge'
+    restart: on-failure:5
+    cpu_shares: 128
+    mem_limit: 1073741824
+    security_opt:
+    - no-new-privileges
+
+  firefox:
+    image: selenium/node-firefox-debug
+    ports:
+    - 5901:5900/tcp
+    environment:
+      SCREEN_WIDTH: '1600'
+      SCREEN_HEIGHT: '1200'
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "http://localhost:5555/", "--spider" ]
+    links:
+    - hub
+    logging:
+      driver: json-file
+      options:
+        max-size: '50m'
+    network_mode: 'bridge'
+    restart: on-failure:5
+    cpu_shares: 128
+    mem_limit: 1073741824
+    security_opt:
+    - no-new-privileges

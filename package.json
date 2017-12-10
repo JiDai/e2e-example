@@ -1,0 +1,15 @@
+{
+    "name": "e2e-example",
+    "version": "1.0.0",
+    "description": "npm dependencies for e2e tests",
+    "dependencies": {
+        "browserstack-local": "1.2.0",
+        "nightwatch": "0.9.13"
+    },
+    "scripts": {
+        "test:browserstack": "./script/local.runner.js -c ./nightwatch.browserstack-config.js",
+        "test": "./node_modules/.bin/nightwatch -c ./nightwatch.config.js"
+    },
+    "author": "MeilleursAgents",
+    "license": "ISC"
+}
