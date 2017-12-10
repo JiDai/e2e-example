@@ -3,13 +3,17 @@
     "version": "1.0.0",
     "description": "npm dependencies for e2e tests",
     "dependencies": {
-        "browserstack-local": "1.2.0",
-        "nightwatch": "0.9.13"
+        "better-npm-run": "^0.1.0",
+        "nightwatch": "^0.9.19"
+    },
+    "betterScripts": {
+        "test": {
+            "command": "./node_modules/.bin/nightwatch -c ./nightwatch.config.js"
+        }
     },
     "scripts": {
-        "test:browserstack": "./script/local.runner.js -c ./nightwatch.browserstack-config.js",
-        "test": "./node_modules/.bin/nightwatch -c ./nightwatch.config.js"
+        "test": "./node_modules/.bin/better-npm-run test"
     },
-    "author": "MeilleursAgents",
+    "author": "Jordi Dosne",
     "license": "ISC"
 }

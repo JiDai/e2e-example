@@ -25,10 +25,20 @@ module.exports = {
     selenium: {
         // Tell selenium we launch process manually
         start_process: false,
+
+        //// You can also use local binaries with these settings rather than the docker selenuim server
+        //// For that, you must specify  path to binaries
+        //// Prefer use a specific chromedriver version rather than one included in selenium-server-standalone
+        //// You will able to use a more recent version (I had problems with included version)
+        //// Here is an example :
+        // start_process: true,
+        // server_path: './bin/selenium-server-standalone-3.8.1.jar',
+        // cli_args: {
+        //     'webdriver.chrome.driver': './bin/chromedriver',
+        // },
     },
 
     test_settings: {
-
         detailed_output: true,
 
         default: {

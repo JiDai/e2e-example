@@ -1,7 +1,3 @@
-const defaultGlobals = {
-    pageLoadTimeout: 10000,
-};
-
 module.exports = {
     // this controls whether to abort the test execution when an assertion failed and skip the rest
     // it's being used in waitFor commands and expect assertions
@@ -22,13 +18,4 @@ module.exports = {
     // controls the timeout time for async hooks. Expects the done() callback to be invoked within this time
     // or an error is thrown
     asyncHookTimeout: 10000,
-
-    // Define globals for each browser environment
-    default: defaultGlobals,
-    mobile: defaultGlobals,
-    firefox: defaultGlobals,
-    edge: defaultGlobals,
-    safari: defaultGlobals,
-    chrome: defaultGlobals,
-    iphone: defaultGlobals,
 };

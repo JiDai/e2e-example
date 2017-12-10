@@ -1,7 +1,7 @@
 FROM node:8
 
 # Base URL of the website to test
-ENV E2E_URL https://www.staging.meilleursagents.tech
+ENV E2E_URL https://e2e-example.netlify.com
 ENV WORKDIR_NAME /project
 ENV SELENIUM_HOST selenium
 

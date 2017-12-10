@@ -1,5 +1,5 @@
-const { deepEqual } = require('../helpers/ObjectHelpers');
-const constants = require('../constants');
+const { deepEqual, getBrowserName } = require('../helpers/ObjectHelpers');
+const { GA_LOCAL_STORAGE_KEY } = require('../constants');
 
 /**
  * Checks if a Google Analytics call has been process
@@ -52,10 +52,9 @@ module.exports.assertion = function(hitType, eventCategory, eventAction, eventLa
      * @type {function}
      */
     this.pass = function(gaLogEntries) {
-        if (constants.getBrowserName(this.api) !== 'chrome') {
+        if (getBrowserName(this.api) !== 'chrome') {
             return true;
         }
-
         return gaLogEntries && this.search(gaLogEntries).length === 1;
     };
 
@@ -82,15 +81,15 @@ module.exports.assertion = function(hitType, eventCategory, eventAction, eventLa
     this.command = function(callback) {
         const browser = this;
 
-        if (constants.getBrowserName(browser.api) !== 'chrome') {
+        if (getBrowserName(browser.api) !== 'chrome') {
             // TODO Why an NOOP
-            constants.noop(browser.api, callback);
+            noop(browser.api, callback);
         } else {
             browser.api.execute(
                 function getLocalStorage(storageKey) {
                     return window.localStorage.getItem(storageKey);
                 },
-                [constants.GA_LOCAL_STORAGE_KEY],
+                [GA_LOCAL_STORAGE_KEY],
                 function(result) {
                     if (typeof callback === 'function') {
                         let analyticsLogEntries = undefined;
@@ -98,10 +97,6 @@ module.exports.assertion = function(hitType, eventCategory, eventAction, eventLa
                             analyticsLogEntries = JSON.parse(result.value);
                         } catch (e) {
                             global.console.error(e);
-                        }
-
-                        if (constants.GA_DEBUG) {
-                            global.console.log(analyticsLogEntries);
                         }
 
                         callback.call(browser, analyticsLogEntries);
