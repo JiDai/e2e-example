@@ -4,7 +4,7 @@
     "description": "npm dependencies for e2e tests",
     "dependencies": {
         "better-npm-run": "^0.1.0",
-        "nightwatch": "^0.9.19"
+        "nightwatch": "^2.6.9"
     },
     "betterScripts": {
         "test": {
